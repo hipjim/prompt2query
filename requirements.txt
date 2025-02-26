@@ -1,0 +1,7 @@
+Flask
+psycopg2-binary
+openai
+python-dotenv
+tabulate
+rich
+sqlparse
