@@ -1,6 +1,6 @@
 # Prompt2Query: Natural Language to SQL Query CLI
 
-![Prompt2Query Banner](https://raw.githubusercontent.com/yourusername/prompt2query/main/assets/banner.png)
+![Prompt2Query Banner](https://raw.githubusercontent.com/github/prompt2query/main/assets/banner.svg)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
