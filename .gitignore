@@ -1,2 +1,4 @@
 .aider*
 .env
+.idea
+ __pycache__git
