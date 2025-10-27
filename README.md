@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 
-Prompt2Query is a powerful command-line tool that translates natural language into SQL queries using AI, allowing users to interact with databases without writing complex SQL code.
+Prompt2Query is a powerful command-line agent that translates natural language into SQL queries using AI, allowing users to interact with databases without writing complex SQL code.
 
 ## 🌟 Features
 
