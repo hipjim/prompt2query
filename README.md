@@ -1,112 +1,399 @@
-# Prompt2Query: Natural Language to SQL Query CLI
-
-![Prompt2Query Banner](https://raw.githubusercontent.com/hipjim/prompt2query/main/assets/banner.svg)
+# Prompt2Query: Natural Language to SQL Query CLI 🚀
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
+[![OpenAI](https://img.shields.io/badge/AI-OpenAI-412991.svg)](https://openai.com/)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791.svg)](https://www.postgresql.org/)
 
-Prompt2Query is a powerful command-line agent that translates natural language into SQL queries using AI, allowing users to interact with databases without writing complex SQL code.
+> **Transform natural language into SQL queries instantly.** Interact with your database using plain English - no SQL expertise required!
 
-## 🌟 Features
+Prompt2Query is an intelligent CLI tool that leverages AI to translate natural language commands into optimized SQL queries, making database querying accessible to everyone.
 
-- **Natural Language Processing**: Convert plain English commands into precise SQL queries
-- **Interactive CLI**: User-friendly command-line interface with color coding
-- **Schema Analysis**: Automatic detection of table relationships and join patterns
-- **Query Preview**: Review generated SQL before execution
-- **Export Functionality**: Save results to CSV files
-- **Database Insights**: Explore table schemas and relationships with simple commands
+---
 
-## 🖥️ Demo
+## ✨ Key Features
 
-![Prompt2Query Demo](https://raw.githubusercontent.com/yourusername/prompt2query/main/assets/demo.gif)
+| Feature | Description |
+|---------|-------------|
+| 🗣️ **Natural Language Processing** | Describe what you want in plain English, get precise SQL |
+| 🎨 **Beautiful CLI Interface** | Color-coded, intuitive command-line experience |
+| 🔍 **Smart Schema Analysis** | Automatic detection of table relationships and join patterns |
+| 👀 **Query Preview & Confirmation** | Review and approve generated SQL before execution |
+| 📊 **Export to CSV** | Save query results to CSV files instantly |
+| 📚 **Query History** | Track all queries executed in your session |
+| 🔗 **Relationship Suggestions** | Intelligent JOIN pattern recommendations |
+| 🛡️ **Safe Execution** | Always confirm before running queries |
+
+---
+
+## 🎬 Quick Demo
+
+```bash
+prompt2query >> Show me all users who joined in the last 30 days
+
+✓ Generating SQL query...
+
+📝 Generated SQL Query:
+────────────────────────────────────────────────────────
+SELECT *
+FROM users
+WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+ORDER BY created_at DESC;
+────────────────────────────────────────────────────────
+
+Execute this query? [Y/n/e(dit)]: y
+
+✓ Query executed successfully!
+
+| id  | username      | email                | created_at          |
+|-----|---------------|----------------------|---------------------|
+| 142 | john_doe      | john@example.com     | 2024-10-15 14:23:01 |
+| 143 | jane_smith    | jane@example.com     | 2024-10-18 09:45:33 |
+...
+```
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python 3.7 or higher
-- PostgreSQL database
-- OpenAI API key
+Ensure you have the following installed:
+
+- **Python 3.7+** ([Download](https://www.python.org/downloads/))
+- **PostgreSQL** ([Download](https://www.postgresql.org/download/))
+- **OpenAI API Key** ([Get one here](https://platform.openai.com/api-keys))
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/prompt2query.git
+   git clone https://github.com/hipjim/prompt2query.git
    cd prompt2query
    ```
 
-2. Install required packages:
+2. **Create a virtual environment** (recommended)
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Create a `.env` file in the project root with your API keys and database credentials:
-   ```
-   # OpenAI configuration
-   OPENAI_API_KEY=your_openai_api_key_here
+4. **Configure environment variables**
+   
+   Create a `.env` file in the project root:
+   ```env
+   # OpenAI Configuration
+   OPENAI_API_KEY=sk-your-api-key-here
+   OPENAI_MODEL=gpt-4  # or gpt-3.5-turbo for faster/cheaper queries
 
-   # PostgreSQL configuration
+   # PostgreSQL Configuration
    DB_HOST=localhost
    DB_DATABASE=your_database_name
-   DB_USER=your_database_user
-   DB_PASSWORD=your_database_password
+   DB_USER=your_username
+   DB_PASSWORD=your_password
    DB_PORT=5432
    ```
 
-### Usage
+5. **Run the application**
+   ```bash
+   python main_cli.py
+   ```
 
-Run the main CLI application:
-```bash
-python main_cli.py
+---
+
+## 📖 Usage Guide
+
+### Available Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `help` | Display help information and usage examples | `help` |
+| `tables` | List all tables in the database | `tables` |
+| `schema` | Show complete database schema with relationships | `schema` |
+| `describe <table>` | Show detailed schema for a specific table | `describe users` |
+| `history` | View all queries executed in current session | `history` |
+| `clear` | Clear the terminal screen | `clear` |
+| `exit` / `quit` | Exit the application | `exit` |
+
+### Example Natural Language Queries
+
+#### Basic Queries
+```
+>> Show me all products
+>> List users registered today
+>> Count total orders
 ```
 
-#### Available Commands
-
-- `help` - Display help information
-- `tables` - List all available tables
-- `schema` - Show complete database schema
-- `clear` - Clear the screen
-- `exit` - Exit the application
-
-#### Example Queries
-
+#### Filtering & Conditions
 ```
->> Show me all users who joined last month
->> What are the top 5 products by revenue?
->> Find customers who have purchased more than 3 products
+>> Find users who joined last month
+>> Show orders with status 'pending'
+>> Get products with price greater than $100
 ```
 
-## 🛠️ Architecture
+#### Aggregations
+```
+>> What's the average order value?
+>> Count orders by status
+>> Sum total revenue for this year
+```
 
-The application consists of several components:
+#### Complex Queries
+```
+>> Show top 10 customers by total spending
+>> Find products that haven't been ordered in 6 months
+>> List users who have made more than 5 purchases
+>> Calculate monthly revenue for the last quarter
+```
 
-- **main_cli.py**: Main entry point with CLI interface
-- **db.py**: Database connection and schema analysis
-- **openai_client.py**: Integration with OpenAI API for natural language processing
-- **query_executor.py**: SQL query execution logic
-- **utils.py**: Utility functions for formatting and exporting results
+#### Joins & Relationships
+```
+>> Show all orders with customer details
+>> List products and their categories
+>> Find users and their recent orders
+```
 
-## 📜 License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🏗️ Architecture
+
+```
+prompt2query/
+├── main_cli.py           # Main CLI application & user interface
+├── improved_cli.py       # Enhanced version with advanced features
+├── db.py                 # Database connection & schema analysis
+├── openai_client.py      # OpenAI API integration & prompt engineering
+├── query_executor.py     # SQL query execution & result handling
+├── utils.py              # Utility functions (formatting, CSV export)
+├── requirements.txt      # Python dependencies
+├── .env                  # Configuration (not in repo)
+└── exports/              # Generated CSV exports
+```
+
+### Component Details
+
+#### **main_cli.py / improved_cli.py**
+- User interface and interaction loop
+- Command parsing and routing
+- Visual feedback with spinners and progress indicators
+
+#### **db.py**
+- PostgreSQL connection management
+- Schema introspection and analysis
+- Foreign key relationship detection
+- JOIN pattern suggestions
+
+#### **openai_client.py**
+- OpenAI API communication
+- Prompt engineering for SQL generation
+- Context management with schema information
+
+#### **query_executor.py**
+- Safe SQL query execution
+- Result fetching and formatting
+- Error handling and recovery
+
+#### **utils.py**
+- Result formatting (tables, JSON)
+- CSV export functionality
+- Color-coded console output
+
+---
+
+## 🎨 Features in Detail
+
+### Smart Schema Analysis
+The tool automatically analyzes your database structure:
+- Detects all tables and their columns
+- Identifies primary and foreign keys
+- Suggests optimal JOIN patterns
+- Provides relationship insights
+
+### Query History
+Track your database exploration:
+- View all queries from current session
+- Review prompts and generated SQL
+- Learn SQL patterns from examples
+
+### Safe Execution
+Safety features built-in:
+- Preview SQL before execution
+- Confirm sensitive operations
+- Graceful error handling
+- Transaction support (coming soon)
+
+### Export Capabilities
+Save your results:
+- Export to CSV format
+- Organized in `exports/` directory
+- Timestamp-based filenames
+- Preserves data types
+
+---
+
+## 🔧 Configuration
+
+### OpenAI Models
+
+Choose the right model for your needs:
+
+| Model | Speed | Cost | Quality | Best For |
+|-------|-------|------|---------|----------|
+| `gpt-4` | Slower | Higher | Excellent | Complex queries, production |
+| `gpt-3.5-turbo` | Fast | Lower | Good | Simple queries, development |
+
+### Database Configuration
+
+Supports various PostgreSQL setups:
+- Local development databases
+- Remote hosted databases (AWS RDS, etc.)
+- Docker containers
+- Cloud-managed instances
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions! Here's how you can help:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/hipjim/prompt2query.git
+   ```
 
-## 📞 Contact
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
 
-Project Link: [https://github.com/hipjim/prompt2query](https://github.com/hipjim/prompt2query)
+3. **Make your changes**
+   - Add new features
+   - Fix bugs
+   - Improve documentation
+   - Add tests
+
+4. **Commit with clear messages**
+   ```bash
+   git commit -m 'Add: Amazing new feature that does X'
+   ```
+
+5. **Push to your fork**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+6. **Open a Pull Request**
+
+### Development Setup
+
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Run tests
+pytest tests/
+
+# Run linter
+flake8 .
+
+# Format code
+black .
+```
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] **Multi-database support** (MySQL, SQLite, MongoDB)
+- [ ] **Query optimization suggestions**
+- [ ] **Visual query builder**
+- [ ] **Saved query templates**
+- [ ] **Collaboration features** (share queries)
+- [ ] **Data visualization** (charts, graphs)
+- [ ] **Query performance metrics**
+- [ ] **Natural language result descriptions**
+- [ ] **Voice input support**
+- [ ] **Web interface**
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**API Key Error**
+```
+Error: OpenAI API key not found
+Solution: Ensure OPENAI_API_KEY is set in your .env file
+```
+
+**Database Connection Failed**
+```
+Error: Could not connect to database
+Solution: Check DB credentials in .env and ensure PostgreSQL is running
+```
+
+**Module Not Found**
+```
+Error: No module named 'openai'
+Solution: Run: pip install -r requirements.txt
+```
+
+---
+
+## 📚 Resources
+
+- [OpenAI API Documentation](https://platform.openai.com/docs)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [SQL Tutorial](https://www.w3schools.com/sql/)
+- [Python SQLAlchemy Guide](https://docs.sqlalchemy.org/)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2024 Prompt2Query Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files...
+```
+
+---
 
 ## 🙏 Acknowledgments
 
-- [OpenAI](https://openai.com/) for their powerful language models
-- [Rich](https://github.com/Textualize/rich) for beautiful terminal formatting
-- [SQLParse](https://github.com/andialbrecht/sqlparse) for SQL formatting
+- **[OpenAI](https://openai.com/)** - For powerful language models that make natural language SQL possible
+- **[Rich](https://github.com/Textualize/rich)** - For beautiful terminal formatting and UI components
+- **[Colorama](https://github.com/tartley/colorama)** - For cross-platform colored terminal output
+- **[SQLParse](https://github.com/andialbrecht/sqlparse)** - For SQL query formatting and parsing
+- **[python-dotenv](https://github.com/theskumar/python-dotenv)** - For clean environment variable management
+
+---
+
+## 📞 Support & Contact
+
+- **Issues**: [GitHub Issues](https://github.com/hipjim/prompt2query/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/hipjim/prompt2query/discussions)
+- **Project**: [https://github.com/hipjim/prompt2query](https://github.com/hipjim/prompt2query)
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the Prompt2Query team**
+
+If you find this project useful, please consider giving it a ⭐️
+
+[⬆ Back to Top](#prompt2query-natural-language-to-sql-query-cli-)
+
+</div>
