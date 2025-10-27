@@ -44,7 +44,7 @@ Important:
     )
 
     response = openai.chat.completions.create(
-        model="o3-mini-2025-01-31",
+        model="gpt-5-mini",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": full_prompt}
